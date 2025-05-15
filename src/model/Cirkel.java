@@ -4,20 +4,16 @@ package model;
  * @author Vincent Velthuizen
  * Beschrijft een Cirkel
  */
-public class Cirkel {
+public class Cirkel extends Figuur {
     private static final int DEFAULT_STRAAL = 1;
-    private static final String DEFAULT_KLEUR = "bosgroen";
-
-    private static final double GRENSWAARDE_GROOT_FIGUUR = 100.0;
 
     private double straal;
     private Punt middelpunt;
-    private String kleur;
 
     public Cirkel(double straal, Punt middelpunt, String kleur) {
+        super(kleur);
         setStraal(straal);
         this.middelpunt = middelpunt;
-        this.kleur = kleur;
     }
 
     public Cirkel(double straal) {
@@ -40,12 +36,9 @@ public class Cirkel {
         return Math.PI * straal * straal;
     }
 
-    public String vertelOverGrootte() {
-        if (geefOppervlakte() > GRENSWAARDE_GROOT_FIGUUR) {
-            return "Ik ben groot!!!";
-        } else {
-            return "Zij zijn groot en ik ben klein en dat is niet EERLIJK!";
-        }
+    @Override
+    public String toString() {
+        return String.format("%s\nStraal: %s\nMiddelpunt: %s", super.toString(), this.straal, this.middelpunt);
     }
 
     public double getStraal() {

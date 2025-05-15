@@ -1,5 +1,6 @@
 package controller;
 
+import model.Cirkel;
 import model.Punt;
 import model.Rechthoek;
 
@@ -17,9 +18,11 @@ public class MeetkundeLauncher {
         rechthoeken[2] = new Rechthoek(5, 8, new Punt(3, 2), "ogre");
 
         for (int rechthoek = 0; rechthoek < rechthoeken.length; rechthoek++) {
-            System.out.println(rechthoeken[rechthoek].geefOppervlakte());
-            System.out.println(rechthoeken[rechthoek].vertelOverGrootte());
+            System.out.println(rechthoeken[rechthoek]);
+            System.out.println();
         }
+
+        System.out.println(new Cirkel());
 
     }
 

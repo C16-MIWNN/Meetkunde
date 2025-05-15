@@ -4,9 +4,7 @@ package model;
  * @author Vincent Velthuizen
  * Beschrijft een rechthoek
  */
-public class Rechthoek {
-    private static final double GRENSWAARDE_GROOT_FIGUUR = 100.0;
-
+public class Rechthoek extends Figuur {
     private static final int DEFAULT_LENGTE = 2;
     private static final int DEFAULT_BREEDTE = 1;
     private static final String DEFAULT_KLEUR = "geel";
@@ -14,13 +12,12 @@ public class Rechthoek {
     private double lengte;
     private double breedte;
     private Punt hoekpuntLinksBoven;
-    private String kleur;
 
     public Rechthoek(double lengte, double breedte, Punt hoekpuntLinksBoven, String kleur) {
+        super(kleur);
         this.lengte = lengte;
         this.breedte = breedte;
         this.hoekpuntLinksBoven = hoekpuntLinksBoven;
-        this.kleur = kleur;
     }
 
     public Rechthoek(double lengte, double breedte) {
@@ -35,19 +32,23 @@ public class Rechthoek {
         return "Een rechthoek is een vierhoek met vier rechte hoeken.";
     }
 
+    @Override
     public double geefOmtrek() {
         return 2 * (lengte + breedte);
     }
 
+    @Override
     public double geefOppervlakte() {
         return lengte * breedte;
     }
 
-    public String vertelOverGrootte() {
-        if (geefOppervlakte() > GRENSWAARDE_GROOT_FIGUUR) {
-            return "Ik ben groot!!!";
-        } else {
-            return "Zij zijn groot en ik ben klein en dat is niet EERLIJK!";
-        }
+    @Override
+    public String toString() {
+        return String.format("%s\nLengte: %.2f\nBreedte: %.2f\nHoekpuntlinksboven: %s",
+                super.toString(), lengte, breedte, hoekpuntLinksBoven);
+    }
+
+    public Punt getHoekpuntLinksBoven() {
+        return hoekpuntLinksBoven;
     }
 }
