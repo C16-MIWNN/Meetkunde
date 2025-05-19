@@ -4,7 +4,7 @@ package model;
  * @author Vincent Velthuizen
  * Beschrijft de algemene eigenschappen van een meetkundig-figuur
  */
-public class Figuur {
+public abstract class Figuur {
     protected static final String DEFAULT_KLEUR = "duck egg";
 
     private static final double GRENSWAARDE_GROOT_FIGUUR = 100.0;
@@ -19,13 +19,9 @@ public class Figuur {
         this.kleur = DEFAULT_KLEUR;
     }
 
-    public double geefOmtrek() {
-        return 0.0;
-    }
+    public abstract double geefOmtrek();
 
-    public double geefOppervlakte() {
-        return 0.0;
-    }
+    public abstract double geefOppervlakte();
 
     public String vertelOverGrootte() {
         if (geefOppervlakte() > GRENSWAARDE_GROOT_FIGUUR) {

@@ -1,6 +1,7 @@
 package controller;
 
 import model.Cirkel;
+import model.Figuur;
 import model.Punt;
 import model.Rechthoek;
 
@@ -11,19 +12,24 @@ import model.Rechthoek;
 public class MeetkundeLauncher {
 
     public static void main(String[] args) {
-        Rechthoek[] rechthoeken = new Rechthoek[3];
+        Rechthoek rechthoek = new Rechthoek(3, 4, new Punt(-2, - 6), "blauw");
+        Cirkel cirkel = new Cirkel(3, new Punt(2, 5), "groen");
 
-        rechthoeken[0] = new Rechthoek();
-        rechthoeken[1] = new Rechthoek(10, 11);
-        rechthoeken[2] = new Rechthoek(5, 8, new Punt(3, 2), "ogre");
+        Figuur[] figuren = new Figuur[4];
+        figuren[0] = rechthoek;
+        figuren[1] = cirkel;
+        figuren[2] = new Rechthoek();
+        figuren[3] = new Cirkel();
 
-        for (int rechthoek = 0; rechthoek < rechthoeken.length; rechthoek++) {
-            System.out.println(rechthoeken[rechthoek]);
+        for (int figuurTeller = 0; figuurTeller < figuren.length; figuurTeller++) {
+            toonFiguur(figuren[figuurTeller]);
             System.out.println();
         }
+    }
 
-        System.out.println(new Cirkel());
-
+    public static void toonFiguur(Figuur figuur) {
+        System.out.println(figuur);
+        System.out.println(figuur.vertelOverGrootte());
     }
 
 }
