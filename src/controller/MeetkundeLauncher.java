@@ -1,9 +1,8 @@
 package controller;
 
-import model.Cirkel;
-import model.Figuur;
-import model.Punt;
-import model.Rechthoek;
+import model.*;
+
+import java.util.ArrayList;
 
 /**
  * @author Vincent Velthuizen
@@ -12,19 +11,12 @@ import model.Rechthoek;
 public class MeetkundeLauncher {
 
     public static void main(String[] args) {
-        Rechthoek rechthoek = new Rechthoek(3, 4, new Punt(-2, - 6), "blauw");
-        Cirkel cirkel = new Cirkel(3, new Punt(2, 5), "groen");
+        Oppervlak mijnOppervlak = new Oppervlak(30, 20);
 
-        Figuur[] figuren = new Figuur[4];
-        figuren[0] = rechthoek;
-        figuren[1] = cirkel;
-        figuren[2] = new Rechthoek();
-        figuren[3] = new Cirkel();
+        mijnOppervlak.voegFiguurToe(new Cirkel(11));
+        mijnOppervlak.voegFiguurToe(new Rechthoek(35, 10));
 
-        for (int figuurTeller = 0; figuurTeller < figuren.length; figuurTeller++) {
-            toonFiguur(figuren[figuurTeller]);
-            System.out.println();
-        }
+        System.out.println(mijnOppervlak);
     }
 
     public static void toonFiguur(Figuur figuur) {
