@@ -13,8 +13,12 @@ public class MeetkundeLauncher {
     public static void main(String[] args) {
         Oppervlak mijnOppervlak = new Oppervlak(30, 20);
 
-        mijnOppervlak.voegFiguurToe(new Cirkel(11));
-        mijnOppervlak.voegFiguurToe(new Rechthoek(35, 10));
+        mijnOppervlak.voegFiguurToe(new Cirkel(9));
+        mijnOppervlak.voegFiguurToe(new Rechthoek(25, 10));
+        mijnOppervlak.voegFiguurToe(new Rechthoek(3, 1));
+        mijnOppervlak.voegFiguurToe(new Rechthoek(5, 10));
+        mijnOppervlak.voegFiguurToe(new Rechthoek(35, 15));
+        mijnOppervlak.voegFiguurToe(new Cirkel(3));
 
         System.out.println(mijnOppervlak);
     }
