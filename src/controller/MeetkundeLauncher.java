@@ -5,6 +5,7 @@ import model.*;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
@@ -15,23 +16,31 @@ import java.util.Scanner;
 public class MeetkundeLauncher {
 
     public static void main(String[] args) {
-        ArrayList<Cirkel> cirkels = new ArrayList<>();
+        ArrayList<Rechthoek> rechthoeken = new ArrayList<>();
 
         try {
-            Scanner stralenBestand = new Scanner(new File("resources/stralen2.txt"));
+            Scanner rechthoekCSVScanner = new Scanner(new File("resources/Rechthoek.csv"));
 
-            while (stralenBestand.hasNext()){
-                double straal = stralenBestand.nextDouble();
-                cirkels.add(new Cirkel(straal));
+            while (rechthoekCSVScanner.hasNextLine()) {
+                String[] regelBrokjes = rechthoekCSVScanner.nextLine().split(",");
+
+                double lengte = Double.parseDouble(regelBrokjes[0]);
+                double breedte = Double.parseDouble(regelBrokjes[1]);
+
+                double xCoordinaat = Double.parseDouble(regelBrokjes[2]);
+                double yCoordinaat = Double.parseDouble(regelBrokjes[3]);
+
+                String kleur = regelBrokjes[4];
+
+                Punt hoekpuntLinksBoven = new Punt(xCoordinaat, yCoordinaat);
+                rechthoeken.add(new Rechthoek(lengte, breedte, hoekpuntLinksBoven, kleur));
             }
         } catch (FileNotFoundException fileNotFoundException) {
-            System.err.println("Het bestand kon niet geopend worden.");
+            System.err.println("Het is niet gelukt om het rechthoeken bestand te openen.");
         }
 
-        System.out.println("Dit zijn de cirkels:");
-
-        for (Cirkel cirkel : cirkels) {
-            toonFiguur(cirkel);
+        for (Rechthoek rechthoek : rechthoeken) {
+            toonFiguur(rechthoek);
             System.out.println();
         }
     }
