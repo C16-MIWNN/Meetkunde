@@ -4,6 +4,7 @@ import model.*;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.InputMismatchException;
@@ -35,13 +36,20 @@ public class MeetkundeLauncher {
                 Punt hoekpuntLinksBoven = new Punt(xCoordinaat, yCoordinaat);
                 rechthoeken.add(new Rechthoek(lengte, breedte, hoekpuntLinksBoven, kleur));
             }
+
         } catch (FileNotFoundException fileNotFoundException) {
             System.err.println("Het is niet gelukt om het rechthoeken bestand te openen.");
         }
 
-        for (Rechthoek rechthoek : rechthoeken) {
-            toonFiguur(rechthoek);
-            System.out.println();
+        try (PrintWriter printWriter = new PrintWriter("resources/calimeros.txt")) {
+            for (Rechthoek rechthoek : rechthoeken) {
+                if (rechthoek instanceof Rechthoek && !rechthoek.isGroot()) {
+                    printWriter.println(rechthoek);
+                    printWriter.println();
+                }
+            }
+        } catch (FileNotFoundException e) {
+            System.err.println("Het is niet gelukt het calimeros bestand te openen");
         }
     }
 

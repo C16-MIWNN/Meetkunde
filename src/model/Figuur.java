@@ -23,8 +23,12 @@ public abstract class Figuur implements Comparable<Figuur>, ToelaatbaarInOppervl
 
     public abstract double geefOppervlakte();
 
+    public boolean isGroot() {
+        return geefOppervlakte() > GRENSWAARDE_GROOT_FIGUUR;
+    }
+
     public String vertelOverGrootte() {
-        if (geefOppervlakte() > GRENSWAARDE_GROOT_FIGUUR) {
+        if (isGroot()) {
             return "Ik ben groot!!!";
         } else {
             return "Zij zijn groot en ik ben klein en dat is niet EERLIJK!";
