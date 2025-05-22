@@ -3,6 +3,8 @@ package controller;
 import model.*;
 
 import java.util.ArrayList;
+import java.util.InputMismatchException;
+import java.util.Scanner;
 
 /**
  * @author Vincent Velthuizen
@@ -11,16 +13,27 @@ import java.util.ArrayList;
 public class MeetkundeLauncher {
 
     public static void main(String[] args) {
-        Oppervlak mijnOppervlak = new Oppervlak(30, 20);
+        Scanner keyboard = new Scanner(System.in);
+        Cirkel cirkel = null;
 
-        mijnOppervlak.voegFiguurToe(new Cirkel(9));
-        mijnOppervlak.voegFiguurToe(new Rechthoek(25, 10));
-        mijnOppervlak.voegFiguurToe(new Rechthoek(3, 1));
-        mijnOppervlak.voegFiguurToe(new Rechthoek(5, 10));
-        mijnOppervlak.voegFiguurToe(new Rechthoek(35, 15));
-        mijnOppervlak.voegFiguurToe(new Cirkel(3));
+        while (cirkel == null) {
+            System.out.print("Geef een straal: ");
 
-        System.out.println(mijnOppervlak);
+            try {
+                double straal = keyboard.nextDouble();
+                cirkel = new Cirkel(straal);
+            } catch (IllegalArgumentException illegalArgumentException) {
+                System.out.println("Geen cirkel gemaakt vanwege: " + illegalArgumentException.getMessage());
+            } catch (InputMismatchException inputMismatchException) {
+                System.out.println("Je moet een komma-getal invoeren!");
+                keyboard.nextLine();
+            } finally {
+                System.out.println("We gaan het nu (eventueel) nog een keer proberen");
+            }
+
+        }
+
+        System.out.println(cirkel);
     }
 
     public static void toonFiguur(Figuur figuur) {
