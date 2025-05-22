@@ -5,10 +5,10 @@ import model.*;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.InputMismatchException;
-import java.util.Scanner;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.util.*;
 
 /**
  * @author Vincent Velthuizen
@@ -17,40 +17,28 @@ import java.util.Scanner;
 public class MeetkundeLauncher {
 
     public static void main(String[] args) {
-        ArrayList<Rechthoek> rechthoeken = new ArrayList<>();
-
+        System.err.print("Driver laden ...");
         try {
-            Scanner rechthoekCSVScanner = new Scanner(new File("resources/Rechthoek.csv"));
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            System.err.println(" driver geladen.");
 
-            while (rechthoekCSVScanner.hasNextLine()) {
-                String[] regelBrokjes = rechthoekCSVScanner.nextLine().split(",");
+            String database = "Figuren";
 
-                double lengte = Double.parseDouble(regelBrokjes[0]);
-                double breedte = Double.parseDouble(regelBrokjes[1]);
+            String connectionUrl = "jdbc:mysql://localhost:3306/" + database;
 
-                double xCoordinaat = Double.parseDouble(regelBrokjes[2]);
-                double yCoordinaat = Double.parseDouble(regelBrokjes[3]);
+            Properties properties = new Properties();
+            properties.setProperty("user", "userFiguren");
+            properties.setProperty("password", "userFigurenPW");
 
-                String kleur = regelBrokjes[4];
+            Connection connection = DriverManager.getConnection(connectionUrl, properties);
+            System.err.println("OK, Connection open");
 
-                Punt hoekpuntLinksBoven = new Punt(xCoordinaat, yCoordinaat);
-                rechthoeken.add(new Rechthoek(lengte, breedte, hoekpuntLinksBoven, kleur));
-            }
-
-        } catch (FileNotFoundException fileNotFoundException) {
-            System.err.println("Het is niet gelukt om het rechthoeken bestand te openen.");
+        } catch (ClassNotFoundException classNotFoundException) {
+            System.err.println(" laden van de MySQL driver is niet gelukt.");
+        } catch (SQLException sqlException) {
+            System.err.println("SQL Exception: " + sqlException.getMessage());
         }
 
-        try (PrintWriter printWriter = new PrintWriter("resources/calimeros.txt")) {
-            for (Rechthoek rechthoek : rechthoeken) {
-                if (rechthoek instanceof Rechthoek && !rechthoek.isGroot()) {
-                    printWriter.println(rechthoek);
-                    printWriter.println();
-                }
-            }
-        } catch (FileNotFoundException e) {
-            System.err.println("Het is niet gelukt het calimeros bestand te openen");
-        }
     }
 
     public static void toonFiguur(Figuur figuur) {
